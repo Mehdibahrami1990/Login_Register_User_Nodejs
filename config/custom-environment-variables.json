@@ -1,0 +1,7 @@
+ {
+  "jwtPrivateKey": "AUTH_JWT_PRIVATE_KEY",
+  "db": {
+    "address": "AUTH_DB_ADDRESS"
+  },
+  "port": "AUTH_PORT"
+}
