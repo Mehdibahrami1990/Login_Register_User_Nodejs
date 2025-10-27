@@ -17,6 +17,15 @@ async function isLoggedin(req, res, next) {
     res.status(400).send("invalid token");
   }
 }
+
+async function isAdmin(req, res, next) {
+  if (!req.user.isadmin) {
+    res.status(403).send("access denied");
+  }
+  next();
+}
+
 module.exports = {
   isLoggedin,
+  isAdmin,
 };
