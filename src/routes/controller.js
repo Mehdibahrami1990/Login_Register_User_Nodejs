@@ -24,26 +24,31 @@ module.exports = class {
   constructor() {
     autoBind(this);
     this.User = User;
+    this.validate = this.validate.bind(this);
   }
   validationBody(req, res) {
     const result = validationResult(req);
-
     if (!result.isEmpty()) {
       const errors = result.array();
-      const message = [];
-      errors.forEach((err) => message.push(err.msg));
+      const messages = errors.map((err) => err.msg);
       res.status(400).json({
-        message: "validation error!",
-        data: message,
+        message: "validation error",
+        data: messages,
       });
       return false;
     }
     return true;
   }
-  validate(req, res, next) {
-    if (!this.validationBody(req, res)) {
-      return;
-    }
+  // validate = (req, res, next) => {
+  //   if (!this.validationBody(req, res)) {
+  //     return;
+  //   }
+  //   next();
+  // };
+  //OR
+    validate(req, res, next) {
+    const isValid = this.validationBody(req, res);
+    if (!isValid) return;
     next();
   }
   response({ res, message, code = 200, data = {} }) {
