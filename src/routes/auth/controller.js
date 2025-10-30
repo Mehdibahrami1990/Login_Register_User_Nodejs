@@ -13,7 +13,7 @@ module.exports = new (class extends controller {
         message: "this user already register",
       });
     }
-    // const { email, name, passeord } = req.body;
+    // const { email, name, passeord } = req.`body;
     // user = new this.User({ email, name, passeord });
     //OR with lodash
     user = new this.User(_.pick(req.body, ["name", "email", "password"]));
@@ -31,6 +31,7 @@ module.exports = new (class extends controller {
 
   async login(req, res) {
     const user = await this.User.findOne({ email: req.body.email });
+
     if (!user) {
       return this.response({
         res,
